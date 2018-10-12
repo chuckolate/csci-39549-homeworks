@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Simple Calculator</title>
+        <script>
+          function calculate() {
+            var num1 = document.getElementById('num1').value;
+            var num2 = document.getElementById('num2').value;
+            var operation = document.getElementById('operation').value;
+
+            // Basic syntax for creating an XMLHttpRequest object
+            var xhttp = new XMLHttpRequest();
+            // function to be executed every time status of the object changes
+            xhttp.onreadystatechange = function() {
+            		// readyState == 4 && status == 200, the response is ready
+                if (this.readyState == 4 && this.status == 200) {
+                   // responseText returns the server response as a text string
+                   document.getElementById('result').innerHTML = xhttp.responseText;
+                }
+            };
+            /*
+            	open(3) specifies the type of request:
+							1 - method: GET or POST
+							2 - url: server file location
+							3 - async: true for asynchronous or false for synchronous
+						*/
+            xhttp.open('POST', operation, true);
+            /*
+							setRequestHeader(2) specifies the data being sent by the send() method
+							1 - header: specifies the header name
+							2 - value: specifies the header value
+            */
+            xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+            // sends the request to the server (used for POST)
+            xhttp.send('num1=' + num1 + '&num2=' + num2);
+          };
+        </script>
+    </head>
+    <body>
+        <div>
+          Pages:
+          <a href="{{ url_for('index') }}">Home</a>
+          <a href="{{ url_for('add') }}">Add</a>
+          <a href="{{ url_for('subtract') }}">Subtract</a>
+          <a href="{{ url_for('multiply') }}">Multiply</a>
+          <a href="{{ url_for('divide') }}">Divide</a>
+        </div>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>

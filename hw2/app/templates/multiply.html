@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Enter two numbers:</h1>
+
+    <form>
+	    <p>First Number: <input type="number" id="num1"></p>
+
+	    <p>Second Number: <input type="number" id="num2"></p>
+
+	    <input type="button" id="operation" value="multiply" onclick=calculate()>
+	  </form>
+
+    <p>Result:</p>
+
+    <div id="result" />
+{% endblock %}
